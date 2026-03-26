@@ -7,10 +7,8 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
-// Configure PDF.js worker for Vite
+// Configure PDF.js worker for Vite using CDN to fix deployment issues
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-  import.meta.url,
-).toString();
 
 // Suppress PDF.js console warnings for empty/invalid PDFs
 const originalWarn = console.warn;

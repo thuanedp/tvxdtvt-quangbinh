@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Download, ZoomIn, ZoomOut, AlertCircle, FileText } from 'lucide-react';
+import { Calendar, Download, ZoomIn, ZoomOut, AlertCircle, FileText, Search } from 'lucide-react';
 import { documents } from '../data/documents';
 import { news } from '../data/news';
 import { Document, Page, pdfjs } from 'react-pdf';
@@ -13,6 +13,26 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
+// Suppress PDF.js console warnings for empty/invalid PDFs
+const originalWarn = console.warn;
+console.warn = (...args) => {
+  if (args[0] && typeof args[0] === 'string' && args[0].includes('InvalidPDFException')) {
+    return;
+  }
+  originalWarn(...args);
+};
+
+const originalError = console.error;
+console.error = (...args) => {
+  if (args[0] && typeof args[0] === 'string' && args[0].includes('InvalidPDFException')) {
+    return;
+  }
+  if (args[0] && args[0].name === 'InvalidPDFException') {
+    return;
+  }
+  originalError(...args);
+};
+
 export default function DocumentDetail() {
   const { id } = useParams();
   const document = documents.find((doc) => doc.id === Number(id));
@@ -20,11 +40,13 @@ export default function DocumentDetail() {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [scale, setScale] = useState(1.0);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setScale(1.0);
     setError(null);
+    setSearchTerm('');
   }, [id]);
 
   if (!document) {
@@ -39,8 +61,8 @@ export default function DocumentDetail() {
     );
   }
 
-  const recentDocuments = documents.filter(doc => doc.id !== document.id).slice(0, 4);
-  const otherDocuments = documents.filter(doc => doc.id !== document.id).slice(0, 5);
+  const relatedDocuments = documents.filter(doc => doc.id !== document.id && doc.category === document.category).slice(0, 5);
+  const searchResults = documents.filter(doc => doc.id !== document.id && doc.title.toLowerCase().includes(searchTerm.toLowerCase()));
   const recentNews = news.slice(0, 3);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
@@ -49,8 +71,11 @@ export default function DocumentDetail() {
   }
 
   function onDocumentLoadError(err: Error) {
-    console.error('Error loading PDF:', err);
-    setError('Không thể hiển thị trực tiếp file PDF này (có thể do file đang trống hoặc trình duyệt không hỗ trợ).');
+    if (err.message.includes('Invalid PDF structure') || err.message.includes('missing PDF header')) {
+      setError('Tài liệu này hiện đang trống hoặc đang trong quá trình cập nhật. Bạn có thể thử tải về máy để kiểm tra.');
+    } else {
+      setError('Không thể hiển thị trực tiếp file PDF này trên trình duyệt do định dạng không được hỗ trợ.');
+    }
   }
 
   const zoomIn = () => setScale(prev => Math.min(prev + 0.2, 3.0));
@@ -140,18 +165,21 @@ export default function DocumentDetail() {
               </div>
 
               {/* Document Container */}
-              <div className="h-[600px] sm:h-[800px] overflow-auto bg-gray-200 p-4 sm:p-8">
+              <div className="h-[600px] sm:h-[800px] overflow-auto bg-gray-200 p-4 sm:p-8 flex flex-col">
                 {error ? (
-                  <div className="flex flex-col items-center justify-center h-full text-gray-500 p-8 text-center">
-                    <AlertCircle className="w-12 h-12 text-red-400 mb-4" />
-                    <p className="mb-4 text-gray-700 font-medium">{error}</p>
+                  <div className="flex-1 flex flex-col items-center justify-center bg-white rounded-lg border border-gray-200 p-8 text-center shadow-sm m-auto max-w-lg w-full">
+                    <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-4">
+                      <AlertCircle className="w-8 h-8 text-red-500" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Không thể xem trước tài liệu</h3>
+                    <p className="mb-8 text-gray-600 leading-relaxed">{error}</p>
                     <a 
                       href={document.fileUrl} 
                       download 
-                      className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm w-full sm:w-auto"
                     >
-                      <Download className="w-4 h-4 mr-2" />
-                      Vui lòng tải file về máy để xem
+                      <Download className="w-5 h-5 mr-2" />
+                      Tải tài liệu về máy
                     </a>
                   </div>
                 ) : (
@@ -203,17 +231,19 @@ export default function DocumentDetail() {
             {/* Other Documents */}
             <div className="mt-8">
               <div className="bg-gray-100 py-3 px-4 mb-4">
-                <h3 className="text-blue-500 font-semibold uppercase tracking-wider text-sm">TÀI LIỆU KHÁC</h3>
+                <h3 className="text-blue-500 font-semibold uppercase tracking-wider text-sm">TÀI LIỆU CÙNG CHUYÊN MỤC</h3>
               </div>
               <ul className="space-y-3">
-                {otherDocuments.map(doc => (
+                {relatedDocuments.length > 0 ? relatedDocuments.map(doc => (
                   <li key={doc.id} className="flex items-start">
                     <FileText className="w-5 h-5 mr-3 text-gray-800 shrink-0 mt-0.5" fill="currentColor" />
                     <Link to={`/documents/${doc.id}`} className="text-gray-800 hover:text-blue-600 transition-colors text-[15px] leading-snug">
                       {doc.title}
                     </Link>
                   </li>
-                ))}
+                )) : (
+                  <li className="text-gray-500 italic text-sm">Không có tài liệu cùng chuyên mục.</li>
+                )}
               </ul>
             </div>
           </div>
@@ -239,21 +269,33 @@ export default function DocumentDetail() {
               </ul>
             </div>
 
-            {/* Latest Documents */}
+            {/* Latest Documents / Search */}
             <div>
               <div className="bg-gray-100 py-3 px-4 mb-4">
-                <h3 className="text-blue-500 font-semibold text-center uppercase tracking-wider text-sm">TÀI LIỆU MỚI NHẤT</h3>
+                <h3 className="text-blue-500 font-semibold text-center uppercase tracking-wider text-sm">TÌM KIẾM TÀI LIỆU</h3>
               </div>
-              <ul className="divide-y divide-gray-100">
-                {recentDocuments.map(doc => (
+              <div className="mb-4 relative">
+                <input
+                  type="text"
+                  placeholder="Nhập tên tài liệu..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                />
+                <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
+              </div>
+              <ul className="divide-y divide-gray-100 max-h-[400px] overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
+                {searchResults.length > 0 ? searchResults.map(doc => (
                   <li key={doc.id}>
                     <Link to={`/documents/${doc.id}`} className="block py-3 hover:text-blue-600 transition-colors group">
-                      <p className="text-gray-800 group-hover:text-blue-600 transition-colors text-[15px] leading-snug">
+                      <p className="text-gray-800 group-hover:text-blue-600 transition-colors text-[15px] leading-snug line-clamp-2">
                         {doc.title}
                       </p>
                     </Link>
                   </li>
-                ))}
+                )) : (
+                  <li className="py-3 text-gray-500 text-sm text-center">Không tìm thấy tài liệu phù hợp</li>
+                )}
               </ul>
             </div>
 

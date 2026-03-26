@@ -37,11 +37,11 @@ export const projects: Project[] = [
     id: 3,
     title: 'Cao tốc Bắc Nam (Gói 13-XL)',
     category: 'Đường Cao Tốc',
-    image: 'https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/thi-nghiem-vat-lieu-xay-dung/cao-toc-bac-nam-ql45-mai-son.jpg',
     description: 'Xây lắp và khảo sát, thiết kế BVTC đoạn Km307 + 600 – Km318 + 00 thuộc Dự án xây dựng một số đoạn đường bộ cao tốc trên tuyến Bắc Nam phía đông giai đoạn 2017 – 2020.',
     content: 'Gói thầu 13-XL thi công xây dựng đoạn Km307+600 - Km318+000 thuộc dự án thành phần đầu tư xây dựng đoạn Mai Sơn - Quốc lộ 45.',
     gallery: [
-      'https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+      '/images/thi-nghiem-vat-lieu-xay-dung/cao-toc-bac-nam-ql45-mai-son.jpg'
     ]
   },
   {
@@ -70,11 +70,11 @@ export const projects: Project[] = [
     id: 6,
     title: 'Đường giao thông Gio Linh - Cam Lộ',
     category: 'Đường Giao Thông',
-    image: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/thi-nghiem-vat-lieu-xay-dung/duong-giao-thong-gio-linh-cam-lo.jpg',
     description: 'Gói thầu QT01: Xây dựng đường giao thông liên huyện Gio Linh - Cam Lộ. Dự án: Hạ tầng cơ bản cho phát triển toàn diện tỉnh Quảng Trị.',
     content: 'Dự án nhằm cải thiện hạ tầng giao thông, kết nối các vùng kinh tế trọng điểm của tỉnh Quảng Trị.',
     gallery: [
-      'https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+      '/images/thi-nghiem-vat-lieu-xay-dung/duong-giao-thong-gio-linh-cam-lo.jpg'
     ]
   },
   {
@@ -92,22 +92,22 @@ export const projects: Project[] = [
     id: 8,
     title: 'Tuyến đường du lịch Nam Quảng Bình (Gói QB01.2)',
     category: 'Đường Du Lịch',
-    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/thi-nghiem-vat-lieu-xay-dung/dương-du-lich-nam-quang-binh-2.jpg',
     description: 'Cải thiện và nâng cấp Tuyến đường du lịch kết nối TP Đồng Hới với vùng Nam tỉnh Quảng Bình (Tuyến BOT - Ngư Thuỷ Bắc, tuyến An Sơn).',
     content: 'Dự án góp phần phát triển du lịch khu vực phía Nam tỉnh Quảng Bình, kết nối các điểm du lịch hấp dẫn.',
     gallery: [
-      'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+      '/images/thi-nghiem-vat-lieu-xay-dung/dương-du-lich-nam-quang-binh-2.jpg'
     ]
   },
   {
     id: 9,
     title: 'Tuyến đường du lịch Nam Quảng Bình (Gói QB01.1)',
     category: 'Đường Du Lịch',
-    image: 'https://images.unsplash.com/photo-1502899576159-f224dc2349fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/thi-nghiem-vat-lieu-xay-dung/dương-du-lich-nam-quang-binh-1.jpg',
     description: 'Cải thiện nâng cấp tuyến đường du lịch kết nối thành phố Đồng Hới với vùng Nam tỉnh Quảng Bình (tuyến Bảo Ninh - Hải Ninh; điện chiếu sáng tuyến An Sơn).',
     content: 'Nâng cấp cơ sở hạ tầng giao thông phục vụ du lịch, tạo động lực phát triển kinh tế - xã hội địa phương.',
     gallery: [
-      'https://images.unsplash.com/photo-1502899576159-f224dc2349fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+      '/images/thi-nghiem-vat-lieu-xay-dung/dương-du-lich-nam-quang-binh-1.jpg'
     ]
   },
   {

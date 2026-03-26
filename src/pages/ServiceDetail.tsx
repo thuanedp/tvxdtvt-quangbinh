@@ -88,12 +88,36 @@ export default function ServiceDetail() {
   const [activeTab, setActiveTab] = useState<'info' | 'images' | 'videos'>('info');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   
+  const [imagePage, setImagePage] = useState(1);
+  const [videoPage, setVideoPage] = useState(1);
+  const imagesPerPage = 12;
+  const videosPerPage = 4;
+
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
+    setImagePage(1);
+    setVideoPage(1);
+    setActiveTab('info');
   }, [id]);
 
   const service = id ? serviceData[id] : null;
+
+  const totalImagePages = service?.images ? Math.ceil(service.images.length / imagesPerPage) : 0;
+  const currentImages = service?.images ? service.images.slice((imagePage - 1) * imagesPerPage, imagePage * imagesPerPage) : [];
+
+  const totalVideoPages = service?.videos ? Math.ceil(service.videos.length / videosPerPage) : 0;
+  const currentVideos = service?.videos ? service.videos.slice((videoPage - 1) * videosPerPage, videoPage * videosPerPage) : [];
+
+  const handleImagePageChange = (page: number) => {
+    setImagePage(page);
+    document.getElementById('tab-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleVideoPageChange = (page: number) => {
+    setVideoPage(page);
+    document.getElementById('tab-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   if (!service) {
     return (
@@ -161,7 +185,7 @@ export default function ServiceDetail() {
           </div>
 
           {/* Tab Content */}
-          <div className="p-5 sm:p-8 md:p-12 min-h-[400px]">
+          <div id="tab-content" className="p-5 sm:p-8 md:p-12 min-h-[400px] scroll-mt-24">
             {/* Info Tab */}
             {activeTab === 'info' && (
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -180,26 +204,76 @@ export default function ServiceDetail() {
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <h3 className="text-xl sm:text-2xl font-bold text-brand-dark mb-4 sm:mb-6 serif">Hình ảnh từ công trình thực tế</h3>
                 {service.images && service.images.length > 0 ? (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-                    {service.images.map((img: string, idx: number) => (
-                      <div 
-                        key={idx} 
-                        className="group relative aspect-square sm:aspect-video rounded-xl overflow-hidden bg-gray-100 cursor-pointer shadow-sm hover:shadow-md transition-all"
-                        onClick={() => setSelectedImageIndex(idx)}
-                      >
-                        <img 
-                          src={img} 
-                          alt={`${service.title} - Hình ${idx + 1}`} 
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          referrerPolicy="no-referrer"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
-                          <span className="text-white font-medium text-xs sm:text-sm">Hình {idx + 1}</span>
+                  <>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+                      {currentImages.map((img: string, idx: number) => {
+                        const absoluteIndex = (imagePage - 1) * imagesPerPage + idx;
+                        return (
+                          <div 
+                            key={absoluteIndex} 
+                            className="group relative aspect-square sm:aspect-video rounded-xl overflow-hidden bg-gray-100 cursor-pointer shadow-sm hover:shadow-md transition-all"
+                            onClick={() => setSelectedImageIndex(absoluteIndex)}
+                          >
+                            <img 
+                              src={img} 
+                              alt={`${service.title} - Hình ${absoluteIndex + 1}`} 
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              referrerPolicy="no-referrer"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
+                              <span className="text-white font-medium text-xs sm:text-sm">Hình {absoluteIndex + 1}</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    {/* Image Pagination */}
+                    {totalImagePages > 1 && (
+                      <div className="mt-10 flex justify-center items-center space-x-2">
+                        <button
+                          onClick={() => handleImagePageChange(imagePage - 1)}
+                          disabled={imagePage === 1}
+                          className={`p-2 rounded-full flex items-center justify-center transition-colors ${
+                            imagePage === 1 
+                              ? 'text-gray-400 cursor-not-allowed' 
+                              : 'text-gray-600 hover:text-brand-gold hover:bg-brand-gold/10'
+                          }`}
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        
+                        <div className="flex space-x-1 flex-wrap justify-center">
+                          {Array.from({ length: totalImagePages }, (_, i) => i + 1).map((page) => (
+                            <button
+                              key={page}
+                              onClick={() => handleImagePageChange(page)}
+                              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+                                imagePage === page
+                                  ? 'bg-brand-gold text-white shadow-sm'
+                                  : 'text-gray-600 hover:text-brand-gold hover:bg-brand-gold/10'
+                              }`}
+                            >
+                              {page}
+                            </button>
+                          ))}
                         </div>
+
+                        <button
+                          onClick={() => handleImagePageChange(imagePage + 1)}
+                          disabled={imagePage === totalImagePages}
+                          className={`p-2 rounded-full flex items-center justify-center transition-colors ${
+                            imagePage === totalImagePages 
+                              ? 'text-gray-400 cursor-not-allowed' 
+                              : 'text-gray-600 hover:text-brand-gold hover:bg-brand-gold/10'
+                          }`}
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
                       </div>
-                    ))}
-                  </div>
+                    )}
+                  </>
                 ) : (
                   <div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
                     <ImageIcon className="mx-auto h-12 w-12 text-gray-300 mb-3" />
@@ -214,23 +288,73 @@ export default function ServiceDetail() {
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <h3 className="text-xl sm:text-2xl font-bold text-brand-dark mb-4 sm:mb-6 serif">Video tiến độ & nghiệm thu</h3>
                 {service.videos && service.videos.length > 0 ? (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-                    {service.videos.map((vid: string, idx: number) => (
-                      <div key={idx} className="rounded-xl overflow-hidden bg-black shadow-lg">
-                        <video 
-                          controls 
-                          className="w-full aspect-video"
-                          poster="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?auto=format&fit=crop&q=80"
+                  <>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                      {currentVideos.map((vid: string, idx: number) => {
+                        const absoluteIndex = (videoPage - 1) * videosPerPage + idx;
+                        return (
+                          <div key={absoluteIndex} className="rounded-xl overflow-hidden bg-black shadow-lg">
+                            <video 
+                              controls 
+                              className="w-full aspect-video"
+                              poster="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?auto=format&fit=crop&q=80"
+                            >
+                              <source src={vid} type="video/mp4" />
+                              Trình duyệt của bạn không hỗ trợ thẻ video.
+                            </video>
+                            <div className="p-4 bg-white border border-t-0 border-gray-100 rounded-b-xl">
+                              <h4 className="font-semibold text-brand-dark">Video công trình {absoluteIndex + 1}</h4>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Video Pagination */}
+                    {totalVideoPages > 1 && (
+                      <div className="mt-10 flex justify-center items-center space-x-2">
+                        <button
+                          onClick={() => handleVideoPageChange(videoPage - 1)}
+                          disabled={videoPage === 1}
+                          className={`p-2 rounded-full flex items-center justify-center transition-colors ${
+                            videoPage === 1 
+                              ? 'text-gray-400 cursor-not-allowed' 
+                              : 'text-gray-600 hover:text-brand-gold hover:bg-brand-gold/10'
+                          }`}
                         >
-                          <source src={vid} type="video/mp4" />
-                          Trình duyệt của bạn không hỗ trợ thẻ video.
-                        </video>
-                        <div className="p-4 bg-white border border-t-0 border-gray-100 rounded-b-xl">
-                          <h4 className="font-semibold text-brand-dark">Video công trình {idx + 1}</h4>
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        
+                        <div className="flex space-x-1 flex-wrap justify-center">
+                          {Array.from({ length: totalVideoPages }, (_, i) => i + 1).map((page) => (
+                            <button
+                              key={page}
+                              onClick={() => handleVideoPageChange(page)}
+                              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+                                videoPage === page
+                                  ? 'bg-brand-gold text-white shadow-sm'
+                                  : 'text-gray-600 hover:text-brand-gold hover:bg-brand-gold/10'
+                              }`}
+                            >
+                              {page}
+                            </button>
+                          ))}
                         </div>
+
+                        <button
+                          onClick={() => handleVideoPageChange(videoPage + 1)}
+                          disabled={videoPage === totalVideoPages}
+                          className={`p-2 rounded-full flex items-center justify-center transition-colors ${
+                            videoPage === totalVideoPages 
+                              ? 'text-gray-400 cursor-not-allowed' 
+                              : 'text-gray-600 hover:text-brand-gold hover:bg-brand-gold/10'
+                          }`}
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
                       </div>
-                    ))}
-                  </div>
+                    )}
+                  </>
                 ) : (
                   <div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
                     <Video className="mx-auto h-12 w-12 text-gray-300 mb-3" />

@@ -4,15 +4,9 @@ import { motion } from 'motion/react';
 export default function Hero() {
   return (
     <section id="home" className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Gradient */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-          alt="Construction site"
-          className="w-full h-full object-cover object-center"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 to-brand-charcoal/80 mix-blend-multiply" />
+         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 to-brand-charcoal/80 mix-blend-multiply" />
       </div>
 
       {/* Content */}

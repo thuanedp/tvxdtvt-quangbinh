@@ -58,7 +58,7 @@ export default function DocumentDetail() {
     );
   }
 
-  const relatedDocuments = documents.filter(doc => doc.id !== document.id && doc.category === document.category).slice(0, 5);
+  const relatedDocuments = documents.filter(doc => doc.id !== document.id && doc.category === document.category);
   const searchResults = documents.filter(doc => doc.id !== document.id && doc.title.toLowerCase().includes(searchTerm.toLowerCase()));
   const recentNews = news.slice(0, 3);
 
@@ -230,7 +230,7 @@ export default function DocumentDetail() {
               <div className="bg-gray-100 py-3 px-4 mb-4">
                 <h3 className="text-blue-500 font-semibold uppercase tracking-wider text-sm">TÀI LIỆU CÙNG CHUYÊN MỤC</h3>
               </div>
-              <ul className="space-y-3">
+              <ul className="space-y-3 max-h-[500px] overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
                 {relatedDocuments.length > 0 ? relatedDocuments.map(doc => (
                   <li key={doc.id} className="flex items-start">
                     <FileText className="w-5 h-5 mr-3 text-gray-800 shrink-0 mt-0.5" fill="currentColor" />

@@ -1,4 +1,4 @@
-import { Building2, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Building2, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
@@ -24,9 +24,6 @@ export default function Footer() {
               </a>
               <a href="#" className="text-gray-500 hover:text-brand-gold transition-all transform hover:scale-110">
                 <Linkedin className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-brand-gold transition-all transform hover:scale-110">
-                <Instagram className="h-6 w-6" />
               </a>
             </div>
           </div>
@@ -64,9 +61,12 @@ export default function Footer() {
                 <span className="font-bold text-white mr-2 text-xs uppercase tracking-widest">Địa chỉ:</span>
                 <span className="text-sm">54 đường Nguyễn Hữu Cảnh, Phường Đồng Hới, tỉnh Quảng Trị</span>
               </li>
-              <li className="flex items-center">
-                <span className="font-bold text-white mr-2 text-xs uppercase tracking-widest">Điện thoại:</span>
-                <a href="tel:0912881202" className="hover:text-brand-gold transition-colors text-sm">0912 881 202</a>
+              <li className="flex items-start">
+                <span className="font-bold text-white mr-2 text-xs uppercase tracking-widest mt-1">Điện thoại:</span>
+                <div className="flex flex-col gap-1">
+                  <a href="tel:0919012636" className="text-brand-gold hover:text-white transition-colors font-bold text-base">0919 012 636</a>
+                  <a href="tel:0912881202" className="hover:text-brand-gold transition-colors text-sm">0912 881 202</a>
+                </div>
               </li>
               <li className="flex items-center">
                 <span className="font-bold text-white mr-2 text-xs uppercase tracking-widest">Email:</span>

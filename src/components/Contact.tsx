@@ -89,7 +89,10 @@ ${formData.message}`;
                   </div>
                   <div>
                     <h5 className="font-bold text-brand-dark mb-2 uppercase tracking-wider text-sm">Điện thoại</h5>
-                    <a href="tel:0912881202" className="text-gray-600 hover:text-brand-gold transition-colors font-light">
+                    <a href="tel:0919012636" className="text-brand-gold hover:text-brand-gold-dark transition-colors font-bold block text-lg">
+                      0919 012 636
+                    </a>
+                    <a href="tel:0912881202" className="text-gray-600 hover:text-brand-gold transition-colors font-light block mt-1">
                       0912 881 202
                     </a>
                   </div>

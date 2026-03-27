@@ -42,13 +42,22 @@ export default function Hero() {
               Khám phá Dịch vụ
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a
-              href="tel:0912881202"
-              className="inline-flex items-center justify-center px-10 py-4 text-base font-semibold rounded-full text-white bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/20 transition-all group"
-            >
-              <PhoneCall className="mr-2 h-5 w-5 group-hover:animate-pulse" />
-              0912 881 202
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="tel:0919012636"
+                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold rounded-full text-white bg-[#4CAF50] hover:bg-[#45a049] shadow-lg shadow-[#4CAF50]/30 transition-all group transform hover:-translate-y-1"
+              >
+                <PhoneCall className="mr-2 h-5 w-5 animate-pulse" />
+                0919 012 636
+              </a>
+              <a
+                href="tel:0912881202"
+                className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-full text-white bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/20 transition-all group"
+              >
+                <PhoneCall className="mr-2 h-5 w-5 group-hover:animate-pulse" />
+                0912 881 202
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>

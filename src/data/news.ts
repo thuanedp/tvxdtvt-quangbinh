@@ -14,7 +14,7 @@ export const news: NewsItem[] = [
     title: 'Tiêu chuẩn và quy chuẩn Việt Nam hiện hành về Kiểm định xây dựng',
     date: '20/03/2026',
     category: 'Kiến thức chuyên ngành',
-    image: 'https://images.unsplash.com/photo-1541888086425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    image: '/images/thi-nghiem-vat-lieu-xay-dung/tieu-chuan-quy-chuan-vn-hien-hanh-ve-kiem-dinh-xay-dung.jpg',
     description: 'Tổng hợp các tiêu chuẩn, quy chuẩn Việt Nam mới nhất áp dụng trong lĩnh vực kiểm định chất lượng công trình xây dựng.',
     content: 'Kiểm định xây dựng là hoạt động đánh giá chất lượng, sự phù hợp với thiết kế, quy chuẩn kỹ thuật, tiêu chuẩn kỹ thuật áp dụng cho công trình. Để thực hiện công tác này một cách chính xác và khách quan, các đơn vị kiểm định phải tuân thủ nghiêm ngặt hệ thống Tiêu chuẩn và Quy chuẩn Việt Nam (TCVN & QCVN) hiện hành.\n\nBài viết này tổng hợp các tiêu chuẩn quan trọng nhất đang được áp dụng, bao gồm các tiêu chuẩn về vật liệu xây dựng (bê tông, cốt thép, gạch, xi măng...), tiêu chuẩn về phương pháp thử nghiệm, và quy chuẩn về an toàn sinh mạng và sức khỏe trong công trình xây dựng.'
   },

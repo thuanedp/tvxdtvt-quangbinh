@@ -14,10 +14,14 @@
 
 html {
   scroll-behavior: smooth;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
   @apply bg-brand-paper text-brand-dark font-sans;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .serif {

@@ -38,7 +38,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToHash />
-      <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-600 selection:text-white relative">
+      <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-600 selection:text-white relative overflow-x-hidden">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

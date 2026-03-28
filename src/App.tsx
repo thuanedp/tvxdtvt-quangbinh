@@ -18,7 +18,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
 
 function ScrollToHash() {
-  const { hash } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
     if (hash) {
@@ -31,7 +31,7 @@ function ScrollToHash() {
     } else {
       window.scrollTo(0, 0);
     }
-  }, [hash]);
+  }, [pathname, hash]);
 
   return null;
 }

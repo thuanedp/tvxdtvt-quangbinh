@@ -55,7 +55,7 @@ export default function Services() {
           <h2 className="text-brand-gold font-bold tracking-[0.2em] uppercase text-xs mb-4">DỊCH VỤ CỦA CHÚNG TÔI</h2>
           <h3 className="text-4xl md:text-5xl font-light text-brand-dark mb-6 serif italic">Giải Pháp Xây Dựng <span className="not-italic font-normal">Toàn Diện</span></h3>
           <p className="text-lg text-gray-600 font-light">
-            T&T Quảng Bình cung cấp chuỗi dịch vụ khép kín từ khâu khảo sát, thiết kế đến giám sát và kiểm định, mang lại sự an tâm tuyệt đối cho chủ đầu tư.
+            <span className="font-bold text-brand-dark">T&T Quảng Bình</span> cung cấp chuỗi dịch vụ khép kín từ khâu khảo sát, thiết kế đến giám sát và kiểm định, mang lại sự an tâm tuyệt đối cho chủ đầu tư.
           </p>
         </motion.div>
 

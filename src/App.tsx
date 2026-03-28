@@ -14,6 +14,8 @@ import ServiceDetail from './pages/ServiceDetail';
 import ProjectDetail from './pages/ProjectDetail';
 import DocumentDetail from './pages/DocumentDetail';
 import NewsDetail from './pages/NewsDetail';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfUse from './pages/TermsOfUse';
 
 function ScrollToHash() {
   const { hash } = useLocation();
@@ -46,6 +48,8 @@ export default function App() {
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/documents/:id" element={<DocumentDetail />} />
           <Route path="/news/:id" element={<NewsDetail />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-use" element={<TermsOfUse />} />
         </Routes>
         <Footer />
         <BackToTop />

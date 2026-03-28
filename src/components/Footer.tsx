@@ -5,12 +5,12 @@ export default function Footer() {
   return (
     <footer className="bg-brand-dark text-gray-400 pt-24 pb-12 border-t border-brand-gold/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-16 mb-20">
           
           {/* Brand */}
           <div className="col-span-1 lg:col-span-1">
             <Link to="/#home" className="flex items-center gap-2 mb-8 w-fit">
-              <img src="/logo.png" alt="T&T Quang Binh Logo" className="h-20 w-auto bg-white p-3 rounded-2xl hover:opacity-90 transition-opacity shadow-xl shadow-brand-gold/5" />
+              <img src="/logo.png" alt="T&T Quang Binh Logo" className="h-16 md:h-20 w-auto bg-white p-3 rounded-2xl hover:opacity-90 transition-opacity shadow-xl shadow-brand-gold/5" />
             </Link>
             <p className="text-gray-400 leading-relaxed mb-8 font-light italic serif text-lg">
               "Đơn vị hàng đầu trong lĩnh vực thí nghiệm vật liệu xây dựng, giám sát thi công và kiểm định công trình xây dựng."
@@ -82,8 +82,8 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} CÔNG TY CỔ PHẦN TƯ VẤN XÂY DỰNG T&T QUẢNG BÌNH. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-8 text-[10px] text-gray-600 uppercase tracking-[0.2em]">
-            <a href="#" className="hover:text-white transition-colors">Chính sách bảo mật</a>
-            <a href="#" className="hover:text-white transition-colors">Điều khoản sử dụng</a>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Chính sách bảo mật</Link>
+            <Link to="/terms-of-use" className="hover:text-white transition-colors">Điều khoản sử dụng</Link>
           </div>
         </div>
       </div>

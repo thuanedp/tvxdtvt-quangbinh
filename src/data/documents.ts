@@ -10,11 +10,11 @@ export interface Document {
 export const documents: Document[] = [
   {
     id: 1,
-    title: '1. Công bố năng lực Phòng thí nghiệm LAS 164',
+    title: '1. Công bố công khai thông tin về năng lực hoạt động thí nghiệm chuyên ngành xây dựng',
     date: '26/03/2026',
     category: 'Hồ sơ năng lực',
     fileUrl: '/tai-lieu/Cong-bo-nang-luc-Phong-thi-nghiem-LAS-164.pdf',
-    description: 'Công bố năng lực Phòng thí nghiệm LAS 164'
+    description: 'Công bố công khai thông tin về năng lực hoạt động thí nghiệm chuyên ngành xây dựng'
   },
   {
     id: 2,
